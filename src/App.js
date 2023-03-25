@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import HomeView from "./pages/home";
+import AuthView from "./pages/auth";
+import NoPage from "./pages/404";
+
+import Layout from "./components/Layout";
+import {useEffect, useState} from "react";
+import getUser from "./util/getUser";
+
+export default function App() {
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        getUser(setUser)
+    }, [])
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Layout/>}>
+                    <Route index element={<HomeView user={user}/>}/>
+                    <Route path="auth" element={<AuthView user={user}/>}/>
+                    <Route path="*" element={<NoPage/>}/>
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
-
-export default App;
