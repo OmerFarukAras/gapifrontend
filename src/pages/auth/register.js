@@ -36,6 +36,10 @@ export default function Login() {
             })
 
             response = await response.json()
+            if (response.error) {
+                setButtonDisabled(false)
+                return setError(response.error)
+            }
             sessionStorage.setItem("token", response.token)
             console.log(response.token)
             window.location.reload(true)

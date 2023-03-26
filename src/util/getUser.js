@@ -10,6 +10,7 @@ export default function GetUser(setUser) {
         .then(x => x.json())
         .then(x => {
             if (x.error) return setUser(null)
+            x.token = token
             setUser(x)
         })
         .catch(e => {

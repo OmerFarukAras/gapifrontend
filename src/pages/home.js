@@ -6,7 +6,7 @@ import ReadView from "./post/read";
 import UpdateView from "./post/update";
 import DeleteView from "./post/delete";
 
-export default function Home() {
+export default function Home({user}) {
     const [selectedViewHome, setSelectedViewHome] = useState("1");
     const [selectedViewPosts, setSelectedViewPosts] = useState("2");
 
@@ -62,10 +62,10 @@ export default function Home() {
                     </TabList>
                     {
                         {
-                            '1': <CreateView/>,
-                            '2': <ReadView/>,
-                            '3': <UpdateView/>,
-                            '4': <DeleteView/>
+                            '1': <CreateView user={user}/>,
+                            '2': <ReadView user={user}/>,
+                            '3': <UpdateView user={user}/>,
+                            '4': <DeleteView user={user}/>
                         }[selectedViewPosts]
                     }
                 </div>
